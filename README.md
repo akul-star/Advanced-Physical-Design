@@ -6,7 +6,8 @@
 ## DAY-1: Inception of open-source EDA, OpenLANE and Sky130 PDK
 <details> 
       <summary> How to talk to computers </summary>
----
+
+      ---
 At some part of our life, we have all used an ARDUINO board. We all know that an Arduino board is a popular open-source hardware platform designed for electronics enthusiasts, hobbyists, students, and professionals to create and prototype a wide range of embedded systems and electronic projects. Arduino boards are known for their ease of use and versatility, making them a valuable tool for learning about electronics and programming.
 
 ![arduino](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2c4d152e-9a76-47c3-9631-0a137711f6b7)
