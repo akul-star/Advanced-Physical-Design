@@ -12,7 +12,7 @@ At some part of our life, we have all used an ARDUINO board. We all know that an
 
 ![arduino](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2c4d152e-9a76-47c3-9631-0a137711f6b7)
 
----
+
 
 The Block diagram of an ARDUINO board is as shown below.
 
