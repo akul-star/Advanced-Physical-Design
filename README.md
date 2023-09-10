@@ -50,9 +50,35 @@ Now, let's take example of a  sample SOC using RISC-V as their ISA.
 
 **Macro's:** Macros short for "macrocells" or "macro functions," refer to predefined and reusable functional blocks or components that can be incorporated into custom IC designs. Macros are a form of semiconductor intellectual property (IP) and play a crucial role in simplifying and speeding up the process of designing complex digital circuits. 
 
+
+From Software Application to Hardware  
+======================================
+
+  In this section we will learn what exactly is the Instruction Set Architecture (ISA) role in a device and why it is required.  
+
+![Screenshot from 2023-08-21 10-46-39](https://github.com/akul-star/RISC-V/assets/75561390/ae4ea0da-5b23-4771-90d3-4ef404471e51)
+
+Let's explore how applications communicate with hardware components through various layers, including the operating system (OS), compiler, assembler, and a Register Transfer Language (RTL) snippet.
+
+1. Operating System (OS):
+    The operating system provides an abstraction layer between applications and hardware. It manages the hardware resources, such as memory, processors, and I/O devices, and provides services that applications can use. 
+
+2. Compiler:
+    The compiler translates high-level programming code written in languages like C, C++, or Java into machine code that the hardware can execute. During compilation, the compiler maps high-level code constructs to appropriate machine instructions. For instance, if an application contains a loop, the compiler generates machine instructions that correspond to looping constructs supported by the ISA (RISC-V in our case).
+
+3. Assembler:
+    An assembler converts assembly language code (a human-readable representation of machine code) into actual machine code. Assembly language is a low-level representation of the ISA, and each assembly instruction typically corresponds to a single machine instruction. Assemblers take care of translating assembly mnemonics into binary machine code that the hardware understands. The ISA acts as a abstract interface between the high level language like C, C++ and JAVA & the hardware.
+
+4. RTL Snippet (Register Transfer Language):
+RTL is a description of digital circuits using registers, data paths, and control logic. It's used in hardware design to describe the behavior of digital systems at a low level. 
+
 </details>
 
-
 <details>
-     <summary> From Software Application to Hardware </summary>      
+      <summary> SoC design & OpenLane </summary>
+      ----
+
+Introduction to all components of open-source digital asic design 
+=============================================================
+
 </details>
