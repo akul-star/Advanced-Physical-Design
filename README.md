@@ -76,9 +76,19 @@ RTL is a description of digital circuits using registers, data paths, and contro
 
 <details>
       <summary> SoC design & OpenLane </summary>
-      ----
-
+      
 Introduction to all components of open-source digital asic design 
 =============================================================
+
+![ASIC](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2e769d73-b066-41fe-a0ed-8a158713cd4d)
+
+---
+1. **RTL Design:** RTL (Register-Transfer Level) design is essential for ASICs (Application-Specific Integrated Circuits) because it provides a hardware-specific description of the desired functionality, bridging the gap between high-level behavior and low-level gate-level implementation. It specifies how data is transferred between registers and processed by combinational logic, defines timing constraints, and serves as input to RTL synthesis tools for automatic conversion into gate-level representations. RTL design allows for optimization, simulation-based verification, portability, and clear documentation of the ASIC's design intent, ensuring a solid foundation for subsequent stages of ASIC development and ultimately delivering custom integrated circuits tailored to specific applications.
+
+2. **EDA Tools:** ASIC (Application-Specific Integrated Circuit) design relies on Electronic Design Automation (EDA) tools because these tools provide the essential infrastructure for designing, verifying, and optimizing custom integrated circuits. EDA tools facilitate the creation of hardware descriptions, synthesis of high-level designs into manufacturable gate-level representations, simulation to ensure functionality and correctness, timing analysis for meeting critical performance requirements, and physical implementation to optimize layout and manufacturing. They streamline the complex ASIC design process, ensuring efficiency, accuracy, and successful production of application-specific integrated circuits tailored to specific functions and applications.
+
+3. **PDK Data:** A Process Design Kit (PDK) for ASIC manufacturing is a comprehensive package provided by semiconductor foundries to ASIC designers. It contains vital information, design rules, device models, and a library of components necessary to design and fabricate custom integrated circuits. PDKs ensure that designers adhere to manufacturing guidelines, use accurate device models, and efficiently utilize foundry-specific processes during the ASIC design process, facilitating successful and manufacturable custom chip production.
+
+**SkyWater 130nm Process Design Kit (PDK):** The SkyWater 130nm Process Design Kit (PDK) is a comprehensive set of resources offered by SkyWater Technology Foundry for integrated circuit designers. It encompasses essential information about the 130-nanometer semiconductor manufacturing process, design rules, device models, a library of components, and technology files. This PDK enables designers to create custom integrated circuits tailored to specific applications using SkyWater's 130nm process technology, promoting accessibility and cost-effective semiconductor fabrication.
 
 </details>
