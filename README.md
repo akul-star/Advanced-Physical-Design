@@ -95,4 +95,9 @@ The SkyWater 130nm Process Design Kit (PDK) is a comprehensive set of resources 
 **RIL Design Flow (RTL to GDS2):**
 The RTL (Register-Transfer Level) to GDS2 design flow is the process of creating and manufacturing integrated circuits (ICs). It involves steps like designing the circuit's functionality in RTL, simulating and synthesizing it into gate-level logic, creating a physical layout, verifying the design, generating manufacturing masks, fabricating the ICs, and finally, testing and packaging them. The GDS2 file is generated to describe the layout and is used for manufacturing. This flow ensures that ICs meet specifications and can be mass-produced.
 
+Simplified RTL to GDSII Flow
+============================
+
+
+
 </details>
