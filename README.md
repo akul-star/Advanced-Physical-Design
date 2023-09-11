@@ -96,8 +96,98 @@ The SkyWater 130nm Process Design Kit (PDK) is a comprehensive set of resources 
 The RTL (Register-Transfer Level) to GDS2 design flow is the process of creating and manufacturing integrated circuits (ICs). It involves steps like designing the circuit's functionality in RTL, simulating and synthesizing it into gate-level logic, creating a physical layout, verifying the design, generating manufacturing masks, fabricating the ICs, and finally, testing and packaging them. The GDS2 file is generated to describe the layout and is used for manufacturing. This flow ensures that ICs meet specifications and can be mass-produced.
 
 Simplified RTL to GDSII Flow
-============================
+=============================
 
+![Openlane_ASICflow](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/4a23a0b6-776c-42e0-ae25-eab6d2638929)
 
+1. **Synthesis:** In the RTL to GDS2 flow, synthesis is a crucial step where RTL (Register Transfer Level) code is transformed into a gate-level netlist. This process involves mapping RTL constructs to standard cell libraries, optimizing the design for area, power, and timing, handling clock domains, and applying timing constraints. Static Timing Analysis (STA) is then performed to ensure that the design meets timing requirements. Once synthesis is complete, the synthesized design serves as the foundation for subsequent steps in the flow, including physical design, placement, routing, and ultimately the generation of GDS2 files for fabrication. This synthesis stage plays a pivotal role in achieving a balance between design functionality and performance while preparing the design for manufacturing.
+
+    A. **Liberty View (Liberty Format):**
+        Purpose: Liberty view is used primarily for static timing analysis (STA) during the synthesis process. It provides information about the timing characteristics of standard cells from the cell library, such as setup times, hold times, rise/fall times, and capacitance values.
+        Contents: It includes timing constraints, delay information, and other timing-related data for the cells in the standard cell library.
+        Format: Typically written in a standard format called Liberty (.lib) format, which can be read by synthesis tools and STA tools.
+
+    B. **HDL Behavioral View:**
+        Purpose: The HDL (Hardware Description Language) Behavioral View represents the high-level description of the digital design in RTL (Register Transfer Level) or a higher abstraction level. It's the original RTL code created by designers.
+        Contents: It contains behavioral descriptions of the logic functions, data paths, control structures, and the intended functionality of the design.
+        Format: The format depends on the hardware description language used, such as VHDL or Verilog.
+
+    C. **SPICE View (Simulation View):**
+        Purpose: SPICE (Simulation Program with Integrated Circuit Emphasis) View is used for detailed transistor-level simulation. It provides a transistor-level representation of the design and is essential for accurate circuit-level simulations.
+        Contents: SPICE View includes transistor-level models, parasitic elements, and detailed information about how the gates and interconnections in the design are implemented at the transistor level.
+        Format: Typically written in a SPICE-compatible format (e.g., SPICE netlists) that can be used by circuit simulators for accurate transistor-level simulations.
+
+2. **Floor Planning:** Floor planning in the RTL to GDS2 (GDSII) flow is the initial step of physical design. It involves allocating space and defining the approximate locations of major components and functional blocks on the semiconductor chip. The goal is to create a layout that meets area, power, and performance targets while ensuring that signal routing between these blocks is feasible. Floor planning sets the foundation for subsequent steps like placement and routing and plays a crucial role in achieving a successful chip design.
+
+   A. **Chip Floor Planning:**
+        Purpose: Chip floor planning is the high-level organization of the entire semiconductor chip. It defines the placement of major components and functional blocks on the chip's silicon die.
+        Scope: It encompasses decisions related to core logic placement, I/O ring location, clock distribution, and other global aspects of the chip's physical design.
+        Goals: The primary goals of chip floor planning are to optimize chip area, minimize power consumption, and ensure that the chip meets its performance requirements. It provides a high-level view of how different parts of the chip will interact.
+
+   B. **Macro Floorplanning:**
+        Purpose: Macro floorplanning focuses on the placement and organization of large functional blocks or macros within the chip. These macros can include CPU cores, memory blocks, or other complex IP blocks.
+        Scope: It deals with the internal layout and arrangement of these macros and how they interface with each other and the rest of the chip.
+        Goals: The main objectives of macro floorplanning are efficient use of space, ensuring proper connectivity between macros, and optimizing for performance and power within the macro boundaries.
+
+   C. **Power Planning:**
+        Purpose: Power planning is a critical aspect of chip design that focuses on managing and distributing power throughout the chip. It ensures that each component receives the required power supply and that power delivery is efficient to minimize voltage drop and power dissipation.
+        Scope: Power planning involves decisions about the placement of power grid elements (such as power rails and decoupling capacitors) and the routing of power distribution networks.
+        Goals: The key goals of power planning are to maintain voltage stability, reduce power noise, and meet power delivery requirements, all while minimizing the impact on chip area and performance. Effective power planning is essential for reliable chip operation and to avoid voltage drop-related issues.
+
+3. **Cell Placement:** Cell placement is a crucial step in the physical design of integrated circuits (ICs) within the RTL to GDS2 (GDSII) flow. It involves determining the specific locations on a semiconductor chip's silicon die where individual standard cells, macros, and other functional blocks will be positioned. 
+
+   A. **Chip Floor Planning:**
+        Purpose: Chip floor planning is the high-level organization of the entire semiconductor chip. It defines the placement of major components and functional blocks on the chip's silicon die.
+        Scope: It encompasses decisions related to core logic placement, I/O ring location, clock distribution, and other global aspects of the chip's physical design.
+        Goals: The primary goals of chip floor planning are to optimize chip area, minimize power consumption, and ensure that the chip meets its performance requirements. It provides a high-level view of how different parts of the chip will interact.
+
+   B. **Macro Floorplanning:**
+        Purpose: Macro floorplanning focuses on the placement and organization of large functional blocks or macros within the chip. These macros can include CPU cores, memory blocks, or other complex IP blocks.
+        Scope: It deals with the internal layout and arrangement of these macros and how they interface with each other and the rest of the chip.
+        Goals: The main objectives of macro floorplanning are efficient use of space, ensuring proper connectivity between macros, and optimizing for performance and power within the macro boundaries.
+
+   C. **Power Planning:**
+        Purpose: Power planning is a critical aspect of chip design that focuses on managing and distributing power throughout the chip. It ensures that each component receives the required power supply and that power delivery is efficient to minimize voltage drop and power dissipation.
+        Scope: Power planning involves decisions about the placement of power grid elements (such as power rails and decoupling capacitors) and the routing of power distribution networks.
+        Goals: The key goals of power planning are to maintain voltage stability, reduce power noise, and meet power delivery requirements, all while minimizing the impact on chip area and performance. Effective power planning is essential for reliable chip operation and to avoid voltage drop-related issues.
+
+   4. **Clock Tree Sysnthesis:** CTS stands for "Clock Tree Synthesis." It is a crucial step in the physical design of integrated circuits, particularly digital designs, within the RTL to GDS2 (GDSII) flow. The primary goal of CTS is to create an efficient and optimized network of clock distribution paths throughout the chip.
+
+   5. **Routing:** Routing, in the context of semiconductor chip design within the RTL to GDS2 (GDSII) flow, refers to the process of establishing physical connections between different components, such as standard cells, macros, and input/output pads, on the silicon die. These connections are created using metal layers, which serve as interconnects to facilitate data transmission and signal propagation. Grid routers are a type of routing algorithm used in semiconductor chip design within the context of the RTL to GDS2 (GDSII) flow. These routers are designed to navigate and establish connections between components on a chip layout using a grid-based approach. Grid routers are especially suitable for digital integrated circuits with a regular and structured layout, where the chip design is aligned with a grid pattern.
+
+      A. **Global Routing:**  G
+Global routing is the initial phase of routing in chip design. It determines high-level routing paths for nets between macroblocks or functional units on the chip, focusing on channel assignments and chip-level optimization. The outcome is a routing framework or guides for subsequent detailed routing.
+
+      B. **Detailed Routing:**
+Detailed routing follows global routing and defines precise paths for individual wires within nets. It works at a lower, detailed level, considering cell positions, design rules, and minimizing wirelength. The result is the completed layout of physical interconnections, adhering to global routing guidelines.
+
+   7. **Sign-Off:**
+
+      A. **Physical Verification:** Physical verification is a critical step in the semiconductor chip design process, specifically in the RTL to GDS2 (GDSII) flow. It involves a series of checks and analyses to ensure that the physical layout of the chip adheres to design rules, manufacturing constraints, and reliability criteria. Physical verification helps identify and rectify potential issues in the layout that could lead to manufacturing defects, performance problems, or reliability issues.
+
+     B. **Timing Verification:** Timing verification is a critical step in semiconductor chip design within the RTL to GDS2 (GDSII) flow. It focuses on ensuring that the design meets its timing requirements, particularly in terms of clock-to-q delays, setup times, hold times, and maximum clock frequency. Timing verification helps guarantee that the chip will operate correctly and within its specified performance limits.
+
+OpenLANE
+=========
+
+OpenLane is an open-source toolchain for chip design that automates the process of creating custom digital integrated circuits, from high-level RTL code to manufacturable GDSII files. Developed by efabless, it streamlines the design flow by integrating various open-source EDA tools, allowing users to explore different design options, meet manufacturing requirements, and even experiment with custom chip designs. OpenLane's scripted flow, community-driven development, and accessibility make it a valuable resource for both educational purposes and small design teams looking to create custom ASICs while adhering to industry best practices.
+
+OpenLANE ASIC Flow
+=================
+
+OpenLane is a fully automated process, spanning from RTL (Register-Transfer Level) to GDSII (Graphics Data System II), and relies on various components, including OpenROAD, Yosys, Magic, Netgen, CVC, SPEF-Extractor, KLayout, and a set of specialized scripts for design exploration and enhancement. This comprehensive flow covers every step of ASIC implementation.
+
+OpenLANE utilises a variety of opensource tools in the execution of the ASIC flow:
+
+1. RTL Synthesis & Technology Mapping: yosys,abc
+2. Floorplan & PDN:init_fp, ioPlacer, pdn and tapcell
+3. Placement:RePLace, Resizer, OpenPhySyn & OpenDP
+4. Static Timing Analysis:OpenSTA
+5. Clock Tree Synthesis:TritonCTS
+6. Routing:FastRoute and TritonRoute
+7. SPEF Extraction:SPEF-Extractor
+8. DRC Checks, GDSII Streaming out:Magic, Klayout
+9. LVS check:Netgen
+10. Circuit validity checker:CVC
 
 </details>
