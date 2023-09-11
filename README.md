@@ -191,3 +191,11 @@ OpenLANE utilises a variety of opensource tools in the execution of the ASIC flo
 10. Circuit validity checker:CVC
 
 </details>
+
+<details>
+      <summary> Open Source EDA Tools </summary>
+
+
+
+
+</details>
