@@ -192,9 +192,52 @@ OpenLANE utilises a variety of opensource tools in the execution of the ASIC flo
 
 </details>
 
+
 <details>
       <summary> Open Source EDA Tools </summary>
 
+OpenLANE Installation
+====================
+
+Prior to the installation of the OpenLane install the dependencies and packages using the command shown below :
+
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install -y build-essential python3 python3-venv python3-pip make git
+```
+
+**Commands to install Docker:**
+```
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+sudo docker run hello-world
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo reboot 
+
+
+# Check for installation
+sudo docker run hello-world
+```
+
+**Steps to install OpenLane, PDKs and Tools:**
+
+```
+cd $HOME
+git clone https://github.com/The-OpenROAD-Project/OpenLane --recurse-submodules 
+cd OpenLane
+make
+make test
+cd /home/kanish/OpenLane/designs/ci
+cp -r * ../
+```
 
 
 
