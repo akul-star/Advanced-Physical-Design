@@ -238,7 +238,4 @@ make test
 cd /home/kanish/OpenLane/designs/ci
 cp -r * ../
 ```
-
-
-
 </details>
