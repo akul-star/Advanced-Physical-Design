@@ -179,16 +179,16 @@ OpenLane is a fully automated process, spanning from RTL (Register-Transfer Leve
 
 OpenLANE utilises a variety of opensource tools in the execution of the ASIC flow:
 
-1. RTL Synthesis & Technology Mapping: yosys,abc
-2. Floorplan & PDN:init_fp, ioPlacer, pdn and tapcell
-3. Placement:RePLace, Resizer, OpenPhySyn & OpenDP
-4. Static Timing Analysis:OpenSTA
-5. Clock Tree Synthesis:TritonCTS
-6. Routing:FastRoute and TritonRoute
-7. SPEF Extraction:SPEF-Extractor
-8. DRC Checks, GDSII Streaming out:Magic, Klayout
-9. LVS check:Netgen
-10. Circuit validity checker:CVC
+1. RTL Synthesis & Technology Mapping: yosys, abc
+2. Floorplan & PDN : init_fp, ioPlacer, pdn and tapcell
+3. Placement : RePLace, Resizer, OpenPhySyn & OpenDP
+4. Static Timing Analysis : OpenSTA
+5. Clock Tree Synthesis : TritonCTS
+6. Routing : FastRoute and TritonRoute
+7. SPEF Extraction : SPEF-Extractor
+8. DRC Checks, GDSII Streaming out : Magic, Klayout
+9. LVS check : Netgen
+10. Circuit validity checker : CVC
 
 </details>
 
