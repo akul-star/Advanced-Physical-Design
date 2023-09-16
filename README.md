@@ -155,7 +155,7 @@ Simplified RTL to GDSII Flow
 
 5. **Routing:** Routing, in the context of semiconductor chip design within the RTL to GDS2 (GDSII) flow, refers to the process of establishing physical connections between different components, such as standard cells, macros, and input/output pads, on the silicon die. These connections are created using metal layers, which serve as interconnects to facilitate data transmission and signal propagation. Grid routers are a type of routing algorithm used in semiconductor chip design within the context of the RTL to GDS2 (GDSII) flow. These routers are designed to navigate and establish connections between components on a chip layout using a grid-based approach. Grid routers are especially suitable for digital integrated circuits with a regular and structured layout, where the chip design is aligned with a grid pattern.
 
-      A. **Global Routing:**  G
+      A. **Global Routing:**  
 Global routing is the initial phase of routing in chip design. It determines high-level routing paths for nets between macroblocks or functional units on the chip, focusing on channel assignments and chip-level optimization. The outcome is a routing framework or guides for subsequent detailed routing.
 
       B. **Detailed Routing:**
@@ -164,7 +164,11 @@ Detailed routing follows global routing and defines precise paths for individual
 7. **Sign-Off:**
 
       A. **Physical Verification:** Physical verification is a critical step in the semiconductor chip design process, specifically in the RTL to GDS2 (GDSII) flow. It involves a series of checks and analyses to ensure that the physical layout of the chip adheres to design rules, manufacturing constraints, and reliability criteria. Physical verification helps identify and rectify potential issues in the layout that could lead to manufacturing defects, performance problems, or reliability issues.
+      
+      1. LVS (Layout vs. Schematic) : It is a crucial step in semiconductor manufacturing that compares the physical layout of semiconductor components on a chip to the intended circuit schematic. Its primary purpose is to ensure that the physical design matches the expected design, verifying that connections are correct, there are no short circuits or open circuits, and component dimensions are within tolerances. If discrepancies are found, they are corrected to ensure the chip can be manufactured and will function correctly. LVS helps catch errors early in the design process, ensuring high-quality semiconductor products and reducing manufacturing costs. 
 
+      2. Design Rule Check (DRC): It's an essential step in semiconductor design and manufacturing that verifies if the physical layout of integrated circuits adheres to specific design rules and manufacturing guidelines. It identifies violations, such as inadequate spacing, feature size deviations, or unintended connections, and prompts designers to correct them to ensure that the chip can be manufactured reliably with fewer defects, leading to better-quality electronic devices.
+     
      B. **Timing Verification:** Timing verification is a critical step in semiconductor chip design within the RTL to GDS2 (GDSII) flow. It focuses on ensuring that the design meets its timing requirements, particularly in terms of clock-to-q delays, setup times, hold times, and maximum clock frequency. Timing verification helps guarantee that the chip will operate correctly and within its specified performance limits.
 
 OpenLANE
