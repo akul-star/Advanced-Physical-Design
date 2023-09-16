@@ -278,3 +278,10 @@ Flop ratio = Number of D Flip flops = 1596  = 0.1579
              Total Number of cells    10104
 ```
 </details>
+
+
+## Day-2: Good floorplan vs bad floorplan and introduction to library cells
+
+<details> 
+      <summary> Chip Floor-Planning Consideration </summary>
+</details>
