@@ -151,9 +151,9 @@ Simplified RTL to GDSII Flow
         Scope: Power planning involves decisions about the placement of power grid elements (such as power rails and decoupling capacitors) and the routing of power distribution networks.
         Goals: The key goals of power planning are to maintain voltage stability, reduce power noise, and meet power delivery requirements, all while minimizing the impact on chip area and performance. Effective power planning is essential for reliable chip operation and to avoid voltage drop-related issues.
 
-   4. **Clock Tree Sysnthesis:** CTS stands for "Clock Tree Synthesis." It is a crucial step in the physical design of integrated circuits, particularly digital designs, within the RTL to GDS2 (GDSII) flow. The primary goal of CTS is to create an efficient and optimized network of clock distribution paths throughout the chip.
+4. **Clock Tree Sysnthesis:** CTS stands for "Clock Tree Synthesis." It is a crucial step in the physical design of integrated circuits, particularly digital designs, within the RTL to GDS2 (GDSII) flow. The primary goal of CTS is to create an efficient and optimized network of clock distribution paths throughout the chip.
 
-   5. **Routing:** Routing, in the context of semiconductor chip design within the RTL to GDS2 (GDSII) flow, refers to the process of establishing physical connections between different components, such as standard cells, macros, and input/output pads, on the silicon die. These connections are created using metal layers, which serve as interconnects to facilitate data transmission and signal propagation. Grid routers are a type of routing algorithm used in semiconductor chip design within the context of the RTL to GDS2 (GDSII) flow. These routers are designed to navigate and establish connections between components on a chip layout using a grid-based approach. Grid routers are especially suitable for digital integrated circuits with a regular and structured layout, where the chip design is aligned with a grid pattern.
+5. **Routing:** Routing, in the context of semiconductor chip design within the RTL to GDS2 (GDSII) flow, refers to the process of establishing physical connections between different components, such as standard cells, macros, and input/output pads, on the silicon die. These connections are created using metal layers, which serve as interconnects to facilitate data transmission and signal propagation. Grid routers are a type of routing algorithm used in semiconductor chip design within the context of the RTL to GDS2 (GDSII) flow. These routers are designed to navigate and establish connections between components on a chip layout using a grid-based approach. Grid routers are especially suitable for digital integrated circuits with a regular and structured layout, where the chip design is aligned with a grid pattern.
 
       A. **Global Routing:**  G
 Global routing is the initial phase of routing in chip design. It determines high-level routing paths for nets between macroblocks or functional units on the chip, focusing on channel assignments and chip-level optimization. The outcome is a routing framework or guides for subsequent detailed routing.
@@ -161,7 +161,7 @@ Global routing is the initial phase of routing in chip design. It determines hig
       B. **Detailed Routing:**
 Detailed routing follows global routing and defines precise paths for individual wires within nets. It works at a lower, detailed level, considering cell positions, design rules, and minimizing wirelength. The result is the completed layout of physical interconnections, adhering to global routing guidelines.
 
-   7. **Sign-Off:**
+7. **Sign-Off:**
 
       A. **Physical Verification:** Physical verification is a critical step in the semiconductor chip design process, specifically in the RTL to GDS2 (GDSII) flow. It involves a series of checks and analyses to ensure that the physical layout of the chip adheres to design rules, manufacturing constraints, and reliability criteria. Physical verification helps identify and rectify potential issues in the layout that could lead to manufacturing defects, performance problems, or reliability issues.
 
