@@ -272,8 +272,9 @@ To view report:
 cd OpenLane/designs/picorv32a/runs/RUN_2023.09.10_07.47.37/reports/synthesis/
 gvim 1-synthesis.AREA_0.stat.rpt
 ```
-
+```
 Flop ratio = Number of D Flip flops = 1596  = 0.1579
              ______________________   _____
              Total Number of cells    10104
+```
 </details>
