@@ -284,6 +284,7 @@ Flop ratio = Number of D Flip flops = 1596  = 0.1579
 
 <details> 
       <summary> Chip Floor-Planning Consideration </summary>
+
 ---
 We will look into two parameters, Utilization factor and Aspect ratio, but before that we must look into the important terms in chip design.
 
