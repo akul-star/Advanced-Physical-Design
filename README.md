@@ -242,4 +242,25 @@ make test
 cd /home/kanish/OpenLane/designs/ci
 cp -r * ../
 ```
+
+
+**Invoking OpenLANE**
+
+```
+cd OpenLane
+make mount
+```
+
+Inside the openlane container:
+```
+./flow.tcl -interactive
+package require openlane 0.9
+prep -design picorv32a
+run_synthesis
+```
+![Picorv32](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/50c57c6b-3c65-4334-8de9-91197deea5bf)
+
+![picorv32_synth](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/62d0c362-bbca-492c-b6d6-ad821dd3e666)
+
+
 </details>
