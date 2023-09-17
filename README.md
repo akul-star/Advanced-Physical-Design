@@ -285,7 +285,15 @@ Flop ratio = Number of D Flip flops = 1596  = 0.1579
 <details> 
       <summary> Chip Floor-Planning Consideration </summary>
 
+Define Width & Height of Core & Die
+====================================
+Let's start with a netlist that defines a basic circuit as shown below.
+
+![Basic_Netlist_Ex](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/b68db8ea-cfe1-45b4-8e11-75e745d433b3)
+The circuit has 4 standard cell's comprising of Flip-Flop and Gate's. Let's assume each standard cell has area of 1 unit square. So, not assuming the connecting wires that will also take some area inside the core, we can say the total area consumed by the circuit will be 4 unit square. If core also has the area of 4 unit square, then the utilization factor will be 100%.
+
 ---
+![Utilization factor](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/d89051c2-b419-4650-a993-b02864f85b9a)
 
 We will look into two parameters, Utilization factor and Aspect ratio, but before that we must look into the important terms in chip design.
 
@@ -294,8 +302,9 @@ We will look into two parameters, Utilization factor and Aspect ratio, but befor
 
 **Utilisation Factor**
 
-The ratio of area occupied by the cells in the netlist to the total area of the core
-Best practice is to set the utilisation factor less than 50% so that there will be space for optimisations, routing, inserting buffers etc.,
+
+The ratio of area occupied by the cells in the netlist to the total area of the core.
+Best practice is to set the utilisation factor less than 50% to 60% so that there will be space for optimisations, routing, inserting buffers etc.,
 
 **Aspect Ratio**
 
