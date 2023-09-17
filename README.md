@@ -477,6 +477,13 @@ Cell design flow, also known as standard cell design flow, is the process of cre
 
 9. Library Validation: Validate the entire standard cell library by using it in test chip or design test cases to ensure that it meets performance and functionality requirements.
 
+![cell_design_flow](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/b3f907ea-9fcc-4e10-b90c-ead7c1d986b4)
+
+**Characterization Flow:** Characterization in VLSI refers to the process of analyzing and documenting the electrical behavior of electronic components, such as transistors, logic gates, memory cells, and standard cells, under various operating conditions. Characterization is essential for accurate circuit simulation and helps ensure that integrated circuits (ICs) meet their performance, power, and timing requirements.
+
+
+
+
 **Design steps:**
 
 1. Circuit design
