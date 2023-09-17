@@ -287,6 +287,7 @@ Flop ratio = Number of D Flip flops = 1596  = 0.1579
 
 Define Width & Height of Core & Die
 ====================================
+
 Let's start with a netlist that defines a basic circuit as shown below.
 
 ![Basic_Netlist_Ex](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/b68db8ea-cfe1-45b4-8e11-75e745d433b3)
