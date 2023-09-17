@@ -309,21 +309,28 @@ Best practice is to set the utilisation factor less than 50% to 60% so that ther
 
 **Aspect Ratio**
 
-Aspect ratio is the ratio of height to the width of the die.
-Aspect Ratio of 1 indicates that the die is a square die
-These two Parameters are important to derive the width and height of the core and die, and now we can move ahead to define the location of preplaces cells.
+- Aspect ratio is the ratio of height to the width of the die.
+- Aspect Ratio of 1 indicates that the die is a square die.
+- These two Parameters are important to derive the width and height of the core and die, and now we can move ahead to define the location of preplaces cells.
 
 **Pre-placed Cells**
 
-Whenever there is a complex logic which is repeated multiple times or a design given by a third-party it can be perceived as abstract black box with input and output ports, clocks etc. We can also create black boxes ourselves for the design in case as per the requirements. They can be IPs or Macros
-These Macros and IPs are placed in the core at first before placing the standard cells and power planning. These are optimally such that the cells which are more connected to each other are placed nearby and oriented for input and ouputs.
-Once they have been placed, the location are not altered later on for routing. Thus they have been fixed on the chip.
-These pre-placed cells have to be surrounded with de-coupling capacitors.
+---
+![PrePlacedcells](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/b101985f-2105-4564-932a-dc1b63d9d28e)
+
+- Whenever there is a complex logic which is repeated multiple times or a design given by a third-party it can be perceived as abstract black box with input and output ports, clocks etc. We can also create black boxes ourselves for the design in case as per the requirements. They can be IPs or Macros. 
+- These Macros and IPs are placed in the core at first before placing the standard cells and power planning. They are placed before automated placement and routing and are called as pre-placed cells. These are optimally such that the cells which are more connected to each other are placed nearby and oriented for input and ouputs.
+- Once they have been placed, the location are not altered later on for routing. Thus they have been fixed on the chip. These pre-placed cells have to be surrounded with de-coupling capacitors.
+- 
 
 **De-coupling Capacitors**
 
-The resistances and capacitances associated with long wire lengths can cause the power supply voltage to drop significantly before reaching the logic circuits. This can lead to the signal value entering into the undefined region, outside the noise margin range.
-De-coupling capacitors are huge capacitors charged to power supply voltage and placed close the logic circuit. Their role is to decouple the circuit from power supply by supplying the necessary amount of current to the circuit. They pervent crosstalk and enable local communication.
+- The resistances and capacitances associated with long wire lengths can cause the power supply voltage to drop significantly before reaching the logic circuits. This can lead to the signal value entering into the undefined region, outside the noise margin range. (Noise margin in RTL or Resistor-Transistor Logic refers to the amount of tolerance a digital logic circuit has to withstand noise or voltage fluctuations while still correctly interpreting logical "0" and "1" states. It is a critical parameter in digital circuit design to ensure the robustness and reliability of logic operations.)
+- De-coupling capacitors are huge capacitors charged to power supply voltage and placed close the logic circuit. Their role is to decouple the circuit from power supply by supplying the necessary amount of current to the circuit. They pervent crosstalk and enable local communication.
+- The decoupled capacitor will be connected to all the pre-placed cells in the core, as shown below.
+  
+  ![DecoupledCAP](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2abf75dc-c96d-4ea5-914f-47091bf35f23)
+
 
 **Power Planning**
 
