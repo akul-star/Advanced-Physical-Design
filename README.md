@@ -285,8 +285,7 @@ Flop ratio = Number of D Flip flops = 1596  = 0.1579
 <details> 
       <summary> Chip Floor-Planning Consideration </summary>
 
-Define Width & Height of Core & Die
-====================================
+---
 
 Let's start with a netlist that defines a basic circuit as shown below.
 
@@ -321,27 +320,33 @@ Best practice is to set the utilisation factor less than 50% to 60% so that ther
 - Whenever there is a complex logic which is repeated multiple times or a design given by a third-party it can be perceived as abstract black box with input and output ports, clocks etc. We can also create black boxes ourselves for the design in case as per the requirements. They can be IPs or Macros. 
 - These Macros and IPs are placed in the core at first before placing the standard cells and power planning. They are placed before automated placement and routing and are called as pre-placed cells. These are optimally such that the cells which are more connected to each other are placed nearby and oriented for input and ouputs.
 - Once they have been placed, the location are not altered later on for routing. Thus they have been fixed on the chip. These pre-placed cells have to be surrounded with de-coupling capacitors.
-- 
+
 
 **De-coupling Capacitors**
 
 - The resistances and capacitances associated with long wire lengths can cause the power supply voltage to drop significantly before reaching the logic circuits. This can lead to the signal value entering into the undefined region, outside the noise margin range. (Noise margin in RTL or Resistor-Transistor Logic refers to the amount of tolerance a digital logic circuit has to withstand noise or voltage fluctuations while still correctly interpreting logical "0" and "1" states. It is a critical parameter in digital circuit design to ensure the robustness and reliability of logic operations.)
 - De-coupling capacitors are huge capacitors charged to power supply voltage and placed close the logic circuit. Their role is to decouple the circuit from power supply by supplying the necessary amount of current to the circuit. They pervent crosstalk and enable local communication.
 - The decoupled capacitor will be connected to all the pre-placed cells in the core, as shown below.
+
   
   ![DecoupledCAP](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2abf75dc-c96d-4ea5-914f-47091bf35f23)
 
 
 **Power Planning**
 
-Each block on the chip, however, cannot have its own decap unlike the pre-placed cells. Thus, when multiple units are discharging, we observe a ground bumb and in case of multiple charing units, we see a voltage droop.
-When these are under noise range designed, we won't face any issue, but if they get beyond the defined noise range, we experience undesired behaviour from the design.
-To fix this issue, we will go for a better power plan for the chip, such that each unit can use the Vdd and Gnd near to it.
-A common way to accomplish this is to have VDD and VSS pads connected to the horizontal and vertical power and GND lines which form a power mesh.
+- Each block on the chip, however, cannot have its own decoupled capacitor unlike the pre-placed cells. Thus, when multiple units are discharging, we observe a ground bumb and in case of multiple charing units, we see a voltage droop.
+- Ground bounce is a phenomenon that can occur on an N-bit bus in digital electronic circuits, particularly when many components are switching simultaneously. It's a transient voltage fluctuation on the ground (or ground reference) of the circuit. Ground bounce is typically associated with noise or voltage fluctuations that affect the reliability of digital signals. Below is shown a 16bit bus which experiences a ground bounce when all the bits are discharging.
+  
+  ![Ground bounce](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/50eaf219-e1b8-4952-b1fb-643c2db5c4ec)
+
+- A similar phenomena that we observe is Voltage droop on an N-bit bus, also known as "bus voltage droop" or simply "voltage droop," which is a phenomenon that can occur in digital electronic circuits when there is a momentary decrease in voltage on a multi-bit data bus during high-speed or simultaneous switching of components.
+- When these are under noise range designed, we won't face any issue, but if they get beyond the defined noise range, we experience undesired behaviour from the design.
+- To fix this issue, we will go for a better power plan for the chip, such that each unit can use the Vdd and Gnd near to it.
+- A common way to accomplish this is to have VDD and VSS pads connected to the horizontal and vertical power and GND lines which form a power mesh. A "power mesh" refers to a network of metal or wire traces that distribute power (VDD) and ground (VSS) throughout the integrated circuit (IC). The primary purpose of the power mesh is to ensure a stable and uniform distribution of power and ground across the entire chip, which is crucial for proper functionality and reliability.
 
 **Pin Placement**
 
-The input, output and Clock pins are placed optimally such that there is less complication in routing or optimised delay.
+The input, output and Clock pins are placed optimally such that there is less complication in routing or optimised delay. 
 
 **Note -** CLK needs least resistive path, as they provide signals to all the flops continuously, thus have bigger IO ports.
 There are different styles of pin placement in openlane like random pin placement, uniformly spaced etc.,
