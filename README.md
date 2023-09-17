@@ -402,5 +402,35 @@ Now we look into Placement and its optimisation.
 
 As you can see, the cells are placed such that the data input and output pins are as close as possible to reduce the resistance of the connecting wires so that noise error will not occur. In some cases, their might not be a way to place the cells close to their data pins. To avoid the noise margin issue in the longer connecting wires, we will use Repeaters or Buffers for the signal integrity so that the logic is not compromised. In the above design, their are few abutted cells which will have near to no delayand this is called as abuttment.
 
+![Steps](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/4f92afb1-f313-4e85-9e89-6a1750bde004)
+
+---
+**Library Charaterization:** Library characterization is the process of characterizing electronic components and gates, such as logic gates, flip-flops, and other building blocks, to create models that accurately represent their behavior under various conditions. This characterization provides information about how components respond to different inputs, delays, power consumption, and more.
+
+**Library modeling:** Library modeling involves creating mathematical or algorithmic representations of the behavior and characteristics of components. These models are used by EDA tools to simulate, analyze, and optimize digital circuits during the design phase.
+
+PLACEMENT
+==========
+
+**Legalization:** In the context of detailed placement in digital integrated circuit (IC) design, "legalization" refers to the process of ensuring that the locations and orientations of individual standard cells (or logic gates) meet certain design rules, constraints, and physical requirements. The main goal of legalization is to transform an initial placement of cells into a valid placement that adheres to specific rules while optimizing factors like area, wirelength, and other performance metrics. 
+
+In this step of OpenLANE ASIC flow,The synthesized netlist is to be placed on the floorplan.It occurs in two stages:
+
+1. Global Placement
+2. Detailed Placement
+
+- Global Placement finds optimal position for all cells which may be not legal at the time and overlap.
+- Detailed Placemnent changes this particular placement and make it legal.It is important from a timing point of view
+
+```
+run_placement
+```
+![Run_placement](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/9d91d4c2-0030-4ce8-bad2-55eafd458a67)
+
+```
+magic -T /home/akul/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read
+picorv32.def &
+```
+![run_placement_magic](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ca28cf01-61a9-412b-905d-e5181203203b)
 
 </details>
