@@ -434,3 +434,58 @@ picorv32.def &
 ![run_placement_magic](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ca28cf01-61a9-412b-905d-e5181203203b)
 
 </details>
+
+<details> 
+      <summary> Cell Design & Characterization Flows </summary>
+Under this section, we will go through a thorough insight into the Characterizatiob flow and various steps involved, what are my inputs given, my intermediate outputs and final results we get.
+
+Standard cell design flow involves the following
+
+Inputs:
+
+**PDKs:**
+ 1. DRC & LVS rules
+ 2. SPICE models
+ 3. Libraries
+ 4. User-defined specifications.
+
+**Design steps:**
+
+1. Circuit design
+2. Layout design (Art of layout Euler's path and stick diagram)
+3. Extraction of parasitics
+4. Characterization (timing, noise, power).
+
+**Outputs:**
+
+1. CDL (circuit description language)
+2. LEF
+3. GDSII
+4. extracted SPICE netlist (.cir)
+5. timing, noise and power .lib files
+6. Standard Cell Characterization Flow
+
+Standard Cell Characterizarion Flow
+===================================
+
+The industry-standard process for characterizing standard cells typically consists of the following stages:
+
+1. Read in the models and tech files
+2. Read extracted spice Netlist
+3. Recognise behavior of the cells
+4. Read the subcircuits
+5. Attach power sources
+6. Apply stimulus to characterization setup
+7. Provide neccesary output capacitance loads
+8. Provide neccesary simulation commands
+9. For characterization an opensource software called GUNA is used.
+10. All the steps from 1 to 8 are fed into GUNA,which in turn generates timing,noise and power models.
+
+
+
+
+
+
+
+
+</details>
