@@ -355,9 +355,9 @@ There are different styles of pin placement in openlane like random pin placemen
 
 Importance files in increasing priority order:
 
-- floorplan.tcl - System default envrionment variables
-- conifg.tcl
-- sky130A_sky130_fd_sc_hd_config.tcl
+- floorplan.tcl - System default envrionment variables present in the configuration folder.
+- conifg.tcl - Present in the deign folder.
+- sky130A_sky130_fd_sc_hd_config.tcl - Present in the design folder.
 
 **Floorplan envrionment variables or switches:**
 
@@ -367,5 +367,27 @@ Importance files in increasing priority order:
 4. FP_IO_MODE - defines pin configurations (1 = equidistant/0 = not equidistant)
 5. FP_CORE_VMETAL - vertical metal layer
 6. FP_CORE_HMETAL - horizontal metal layer
+
+Now, we will look into how to generate the floorplan using OpenLane.
+```
+run_floorplan
+```
+
+![run_floorplan](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ddfb5040-aaec-4586-ac6f-50980092f017)
+
+ - We may review floorplan files by checking the floorplan.tcl. The system defaults will have been overriden by switches set in conifg.tcl and further overriden by switches set in sky130A_sky130_fd_sc_hd_config.tcl.
+
+ - Post the floorplan run, a .def file (design exchange format file) will have been created within the results/floorplan directory. It has the various informations such as the die area and unit lenghts used.
+
+![floorplan_def_file](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/9797f91f-a50c-4e08-a5c4-64b65837f139)
+
+Viewing the floorplan using MAGIC:
+
+```
+ magic -T ~/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read picorv32.def &
+```
+![MAGIC_Floorplan](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/fef2c7ca-582c-454e-bbfe-96441142fab0)
+
+
 
 </details>
