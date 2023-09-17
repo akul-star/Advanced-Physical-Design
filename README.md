@@ -440,6 +440,7 @@ Their are no DRC's and all the standard cell are placed at the standard cell row
       <summary> Cell Design & Characterization Flows </summary>
 
 ---
+
 Under this section, we will go through a thorough insight into the Characterizatiob flow and various steps involved, what are my inputs given, my intermediate outputs and final results we get.
 
 Standard cell design flow involves the following
