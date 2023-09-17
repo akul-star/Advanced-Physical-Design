@@ -388,6 +388,8 @@ Viewing the floorplan using MAGIC:
 ```
 ![MAGIC_Floorplan](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/fef2c7ca-582c-454e-bbfe-96441142fab0)
 
+</details>
 
-
+<details> 
+     <summary> Library Binding & Placement </summary>
 </details>
