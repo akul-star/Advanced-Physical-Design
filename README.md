@@ -433,10 +433,13 @@ picorv32.def &
 ```
 ![run_placement_magic](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ca28cf01-61a9-412b-905d-e5181203203b)
 
+Their are no DRC's and all the standard cell are placed at the standard cell rows. Floorplan ensured that their is DECAP at the boundaries of the standard cell . The Tap cells are properly placed and the IO patches are correctly placed. 
 </details>
 
 <details> 
       <summary> Cell Design & Characterization Flows </summary>
+
+---
 Under this section, we will go through a thorough insight into the Characterizatiob flow and various steps involved, what are my inputs given, my intermediate outputs and final results we get.
 
 Standard cell design flow involves the following
@@ -448,6 +451,30 @@ Inputs:
  2. SPICE models
  3. Libraries
  4. User-defined specifications.
+
+Note: In standard cell libraries used in digital integrated circuit (IC) design, "drive strength" refers to the ability of a standard cell to source or sink current when driving a signal. It characterizes how much current a specific standard cell can provide (drive) to its output or draw from its input while maintaining proper signal integrity.
+
+**Cell Design Flow:**
+
+Cell design flow, also known as standard cell design flow, is the process of creating and optimizing standard cell libraries used in digital integrated circuit design. These libraries contain fundamental building blocks, such as logic gates and flip-flops, that are used to design complex digital circuits.
+
+1. Specification and Requirements: Begin by defining the specifications and requirements for the standard cell library. This includes factors like technology node, voltage levels, speed requirements, and power constraints.
+
+2. Cell Architecture Selection: Choose the architecture and topology for the standard cells. This involves deciding on the logical functions each cell will implement and the number of input and output pins.
+
+3. Schematic Design: Create schematic designs for each standard cell. This involves designing the logical function of the cell using gates and interconnections. Tools like schematic capture software are used for this step.
+
+4. Simulation and Verification: Simulate the designed cells to verify that they meet the specified functionality and timing requirements. This step may include functional simulation, static timing analysis (STA), and power analysis.
+
+5. Layout Design: Create physical layouts for the cells based on the schematic designs. This involves specifying the dimensions, placement of transistors, and routing of metal layers.
+
+6. DRC and LVS Checks: Perform Design Rule Check (DRC) and Layout vs. Schematic (LVS) checks to ensure that the layout adheres to the manufacturing rules and is consistent with the schematic.
+
+7. Extraction and Characterization: Extract parasitic components from the layout, including resistances and capacitances. These parasitics impact the timing and power characteristics of the cells. Characterize the cells by measuring their performance under various conditions, such as different input vectors and operating voltages.
+
+8. Timing Analysis: Conduct detailed timing analysis to determine parameters like propagation delay, setup time, hold time, and clock-to-q delay for flip-flops.
+
+9. Library Validation: Validate the entire standard cell library by using it in test chip or design test cases to ensure that it meets performance and functionality requirements.
 
 **Design steps:**
 
