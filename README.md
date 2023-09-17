@@ -392,4 +392,15 @@ Viewing the floorplan using MAGIC:
 
 <details> 
      <summary> Library Binding & Placement </summary>
+---
+First and foremost, we need to bind the netlist with physical cells. We have shapes for OR, AND and every cell for pratice purpose. But in reality we dont have such shapes, we have give an physical dimensions like rectangles or squares weight and width and also different flavours of the same standard cell. This information is given in libs and lefs. Now we place these cells in our design by initilaising it. Now we look into Placement and its optimisation. 
+      
+Now we look into Placement and its optimisation.
+
+---
+![Optimized_Placement](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/f298ebcf-86c8-4374-a124-3d84b96a9bd6)
+
+As you can see, the cells are placed such that the data input and output pins are as close as possible to reduce the resistance of the connecting wires so that noise error will not occur. In some cases, their might not be a way to place the cells close to their data pins. To avoid the noise margin issue in the longer connecting wires, we will use Repeaters or Buffers for the signal integrity so that the logic is not compromised. In the above design, their are few abutted cells which will have near to no delayand this is called as abuttment.
+
+
 </details>
