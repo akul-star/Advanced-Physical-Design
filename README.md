@@ -1213,7 +1213,8 @@ run_cts
 ![run_cts](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/baf8785a-824b-43d6-8aa5-a66c5a7e8a14)
 
 
-![cts_log](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/dea5ead7-01c6-4d53-b8dd-c5e57b9d639c)
+![cts_log](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/e54ccc93-3aa1-4042-9b88-4ce2f5040054)
+
 
 
 After CTS run, my slack values are ``setup:12.36, Hold:0.38``
