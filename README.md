@@ -516,6 +516,79 @@ The industry-standard process for characterizing standard cells typically consis
 9. For characterization an opensource software called GUNA is used.
 10. All the steps from 1 to 8 are fed into GUNA,which in turn generates timing,noise and power models.
 
+Now all these 8 steps are fed in together as a configuration file to a characterization software called GUNA. This software generates timing, noise, power models. These .libs are classified as Timing characterization, power characterization and noise characterization.
+
+![GUNA](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/7f5866eb-194d-4ef7-bb12-98c987f28a16)
+
+TIMING CHARACTERIZATION
+=======================
+In standard cell characterisation, One of the classification of libs is timing characterisation.
+
+**Timing defintion Value**
+
+1. slew_low_rise_thr - 20% value
+2. slew_high_rise_thr - 80% value
+3. slew_low_fall_thr	- 20% value
+4. slew_high_fall_thr - 80% value
+5. in_rise_thr - 50% value
+6. in_fall_thr - 50% value
+7. out_rise_thr - 50% value
+8. out_fall_thr - 50% value
+
+Propagation Delay and Transition Time
+=====================================
+**Propagation Delay :** The time difference between when the transitional input reaches 50% of its final value and when the output reaches 50% of its final value. Poor choice of threshold values lead to negative delay values. Even thought you have taken good threshold values, sometimes depending upon how good or bad the slew, the dealy might be still +ve or -ve.
+```
+Propagation delay = time(out_thr) - time(in_thr)
+```
+**Transition Time:** The time it takes the signal to move between states is the transition time , where the time is measured between 10% and 90% or 20% to 80% of the signal levels.
+```
+Rise transition time = time(slew_high_rise_thr) - time (slew_low_rise_thr)
+
+Low transition time = time(slew_high_fall_thr) - time (slew_low_fall_thr)
+```
+
+</details>
+
+
+## DAY-3: Design Library Cell using ngspice simulations
+
+<details>
+      <summary> CMOS inverter ngspice simulations </summary>
+---
+
+``ngspice`` is opesoure engine where simulations are done.
+
+**IO Placer Revesion:** PnR is a iterative flow and hence, we can make changes to the environment variables in the fly to observe the changes in our design.
+Let us say If I want to change my pin configuration along the core from equvi distance randomly placed to someother placement, we just set that IO mode variable on command prompt as shown below
+
+```
+set ::env(FP_IO_MODE) 2
+```
+
+SPICE Deck Creation and Simulation for CMOS inverter
+====================================================
+
+- Before performing a SPICE simulation we need to create SPICE Deck SPICE Deck provides information about the following:
+- Component connectivity - Connectivity of the Vdd, Vss,Vin, substrate. Substrate tunes the threshold voltage of the MOS.
+- Component values - values of PMOS and NMOS, Output load, Input Gate Voltage, supply voltage.
+- Node Identification and naming - Nodes are required to define the SPICE Netlist For example M1 out in vdd 
+```
+vdd pmos w = 0.375u L = 0.25u , cload out 0 10f
+```
+- Simulation commands
+- Model file - information of parameters related to transistors Simulation of CMOS using different width and lengths. From the waveform, irrespective of switching the shape of it are almost 
+  same.
+
+https://user-images.githubusercontent.com/69166205/266819907-ee5317df-1ef5-4140-88cc-562fecc2001c.png
+
+
+
+
+
+
+
+
 
 
 
