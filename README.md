@@ -570,7 +570,7 @@ set ::env(FP_IO_MODE) 2
 SPICE Deck Creation and Simulation for CMOS inverter
 ====================================================
 
-- Before performing a SPICE simulation we need to create SPICE Deck SPICE Deck provides information about the following:
+- Before performing a SPICE simulation we need to create SPICE Deck. SPICE Deck provides information about the following:
 - Component connectivity - Connectivity of the Vdd, Vss,Vin, substrate. Substrate tunes the threshold voltage of the MOS.
 - Component values - values of PMOS and NMOS, Output load, Input Gate Voltage, supply voltage.
 - Node Identification and naming - Nodes are required to define the SPICE Netlist For example M1 out in vdd 
