@@ -1062,7 +1062,8 @@ set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
 run_synthesis
 ```
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/b1fa6837-a01e-4c8e-a24e-f6877a834470)
+![1](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/12cc133f-48e4-49b2-8c7c-ffa443044f95)
+
 
 - Synthesis log file
 
@@ -1101,7 +1102,8 @@ run_floorplan
 run_placement
 ```
 
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/4e35db1f-f573-4692-82cd-9018b38ddc1e)
+![2](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/0402b5e4-fbb3-4ed6-a608-e833ea5eb5d6)
+
 
 - Now, we check for legality &To check the layout invoke magic from the results/placement directory
 
@@ -1166,7 +1168,7 @@ Since clock tree synthesis has not been performed yet, the analysis is with resp
 Change synthesis strategy, synthesis buffering and synthesis sizing values
 Review maximum fanout of cells and replace cells with high fanout
 sdc file for OpenSTA is modified.
-``base.sdc`` is located in ``vsdstdcelldesigns/extras`` directory. So, we copy it into our design folder using ``cp my_base.sdc /home/emil/OpenLane/designs/picorv32a/src/``
+``base.sdc`` is located in ``vsdstdcelldesigns/extras`` directory. So, we copy it into our design folder using ``cp my_base.sdc /home/akul-sinha/OpenLane/designs/picorv32a/src/``
 
 ![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/3b7e7bb4-61be-416f-8c2d-a2f865eb1e04)
 
@@ -1208,10 +1210,11 @@ The below command is used to run CTS in OpenLANE.
 ```
 run_cts
 ```
-![run_cts](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/dbdd3e21-b2c4-4994-8196-4eb1a6b15eb0)
+![run_cts](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/baf8785a-824b-43d6-8aa5-a66c5a7e8a14)
 
 
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/427a0679-0ee3-4f14-adca-175ef6719174)
+![cts_log](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/dea5ead7-01c6-4d53-b8dd-c5e57b9d639c)
+
 
 After CTS run, my slack values are ``setup:12.36, Hold:0.38``
 Here also both values are not violating.
