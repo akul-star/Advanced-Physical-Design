@@ -1,4 +1,4 @@
-# Advanced-Physical-Design
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/9c61be92-4d5c-484e-9219-92d1785917d7)# Advanced-Physical-Design
 --------------------------
 
 "Advanced Physical Design" represents an intricate domain within digital integrated circuit engineering. It entails the intricate process of transforming a high-level logical description of an electronic circuit into a meticulously optimized layout, considering performance, power efficiency, and area utilization. OpenLANE, an open-source ASIC design flow, combined with the Sky130 Process Design Kit (PDK), has become a powerful toolkit for realizing this goal. Starting with RTL design, the process encompasses synthesis, floor planning, placement, clock tree synthesis, routing, physical verification, and timing closure. Advanced physical design goes a step further, incorporating sophisticated techniques such as custom library cell design and power network optimization. These tools and methodologies have empowered engineers and researchers to explore cutting-edge semiconductor design, enabling innovation in the development of complex integrated circuits.
@@ -618,12 +618,648 @@ Ampersand at the end makes the next prompt line free, otherwise magic keeps the 
 ![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/43d23d97-eb6c-4067-85a5-bea4de45ce56)
 
 
+</details>
 
 
+<details> 
+     <summary> Inception of Layout and CMOS Fabrication Process </summary>
+
+---
+
+Under this section we will look into the Fabrication process. We will look into the various steps for 16-mask fab procedure
+
+16-MASK CMOS Process
+====================
+1. Selecting a substrate
+   - We choose an appropriate substrate as per requirement.
+   - We go with the most common substrate available - P-type.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/f6b76a38-19d6-48e8-9d79-a7fde3c2f628)
 
 
+2. Creation of Active regions for transistors.
+ - We have to make isolation for each pocket, this is done by growing Silicon Dioxide of 40nm over the P-type substrate, then deposit an 80nm layer of Silicon nitride.
+ - Now deposit 1micron of photoresist. On this we make Mask1 and Mask 2 for the pockets and shower it with UV lights
+ - The photoresist under the masks are protected and remaining is etched away with some chemical reaction. Now the mask is removed.
+ - Now we etch off the extra silicon nitride, thus only silicon nitride left are the ones protected by the photoresist. Now Remove left photoresist.
+ - Now, place the entire thing in oxidation furnace. Silicon nitride protects the SiO2 underneath from growing further.
+ - The growth between the nitride layer acts as the isolation as they don't allow the transistor areas to communicate. This growth is also called bird's beak.
+ - The remaining nitride layer is etched off.
+ - This whole process is called LOCOS - Local oxidation of Silicon
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/4c5c545c-e07b-4542-b4e9-128d41e4da58)
+
+3. Formation of N-Well and P-Well
+ - The N-well and P-well regions are created separately.
+ - P-well formation involves photolithography and ion implantation of p-type Boron material into the p-substrate. Energy required is 200keV.
+ - N-well is formed similarly with n-type Phosphorus material. Energy requirement is 400keV.
+ - This ion implantation damages the SiO2 layer.
+ - High-temperature furnace processes drive-in diffusion to establish well depths, known as the twin-tub process.
 
 
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/d91d6c4f-dba1-4bfb-95d7-f9296293c377)
 
 
+4. Formation of Gate Terminal:
+- Gate is the most important terminal as here we control the input voltage.
+- Important parameters for gate formation include oxide capacitance and doping concentration.
+- A polysilicon layer is deposited and photolithography techniques are applied to create NMOS and PMOS gates.
+- The SiO2 layers over Nwell and Pwell are etched off using polysulpuric acid and fresh layer is made with goof thickness.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/8f151080-b698-4bf7-b978-1760085e47e0)
+
+5. Lightly-Doped Drain(LDD) Formation:
+- This is done to achieve a doping profile --> P+, P-, N for NMOS and N+, N- and P for PMOS.
+- LDD is created to control hot electron and short channel effects.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/5e4b9928-b14e-4045-84eb-87d28c92a706)
+
+6. Source and Drain Formation:
+- Thin oxide layers are added to avoid channel effects during ion implantation.
+- N+ and P+ implants are performed using Arsenic implantation and high-temperature annealing.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/6646ca75-a00b-4cc6-9875-1aaca08f679e)
+
+
+7. Local Interconnect Formation:
+- Thin screen oxide is removed through etching in HF solution.
+- Titanium deposition through sputtering is initiated.
+- Heat treatment results in chemical reactions, producing low-resistant titanium silicon dioxide for interconnect contacts and titanium nitride for top-level connections, enabling local communication.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/4a2fb12c-1524-41e0-9391-50a83e38a92d)
+
+8. Higher Level Metal Formation:
+- To achieve suitable metal interconnects, non-planar surface topography is addressed.
+- Chemical Mechanical Polishing (CMP) is utilized by doping silicon oxide with Boron or Phosphorus to achieve surface planarization.
+- TiN and blanket Tungsten layers are deposited and subjected to CMP.
+- An aluminum (Al) layer is added and subjected to photolithography and CMP.
+- This constitutes the first level of interconnects, and additional interconnect layers are added to reach higher-level metal layers.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/dc08f85b-8b33-47dc-8acd-40d5f2c2bd89)
+
+9. Dielectric Layer Addition:
+- Finally, a dielectric layer, typically Si3N4, is applied to safeguard the chip.
+
+This complex process results in the creation of advanced integrated circuits with multiple layers of interconnects, essential for modern electronic devices.
+
+Introduction to SKY130 Basic Layout and LEF
+==========================================
+
+From Layout, we see the layers which are required for CMOS inverter. Inverter is, PMOS and NMOS connected together.
+
+- Gates of both PMOS and NMOS are connected together and fed to input(here ,A), NMOS source connected to ground(here, VGND), PMOS source is connected to VDD(here, VPWR), Drains of PMOS and NMOS are connected together and fed to output(here, Y).
+- The First layer in skywater130 is localinterconnect layer(locali) , above that metal 1 is purple color and metal 2 is pink color.
+- If we want to see connections between two different parts, place the cursor over that area and press S one times. The tkson window gives the component name.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/44b0691d-8f32-4206-9fe4-458f661a7f1b)
+
+**LEF - Library Exchange File**
+
+- The layout of a design is defined in a specific file called LEF.
+- It includes design rules (tech LEF) and abstract information about the cells.
+   - Tech LEF - Technology LEF file contains information about the Metal layer, Via Definition and DRCs. 
+   - Macro LEF - Contains physical information of the cell such as its Size, Pin, their direction.
+
+**Designing standard cell**
+
+- First we need to provide bounding box width and height in tkson window. lets say that width of BBOX is 1.38u and height is 2.72u. The command to give these values to MAGIC is property Fixed BBOX (0 0 1.32 2.72)
+- After this, Vdd, GND segments which are in metal 1 layer, their respective contacts and atlast logic gates layout is defined Inorder to know the logical functioning of the inverter, we extract the spice and then we do simulation on the spice.
+
+**SPICE extraction in MAGIC**
+
+To extract it on spice we open TKCON window, the steps are :
+
+- Know the present directory - pwd
+- Create an extration file - the command is extract all and sky130_inv.ext files has been created
+- Create spice file using .ext file to be used with our ngspice tool - the commands are
+ 1. ext2spice cthresh 0 rthresh 0 - extracts parasatic capcitances also since these are actual layers - nothing is created in the folder
+ 2. ext2spice - a file sky130_inv.spice has been created.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/cbf82ecc-2dd5-44b0-a23f-4f14552fc0e6)
+
+
+</details>
+
+<details>
+      <summary> Lab on SKY130 Tech File </summary>
+
+---
+Under this section, we will go over how to infer the spice deck file and how to run the transient analysis using NGspice. Once the simulation is done, we will characterise the simulation plot.
+
+**Spice Deck:**
+
+- The design is scaled to 0.01u
+- The NMOS and PMOS are defined as
+``cell_name drain_node gate_node source_node model_file_name``
+```
+M1000 Y A VGND VGND nshort_model.0 w=35 l=23
+M1001 Y A VPWR VPWR pshort_model.0 w=37 l=23
+```
+- We will include the model files for NMOS and PMOS from the libs directory.
+```
+ .include ./libs/nshort.lib
+ .include ./libs/pshort.lib
+```
+- Now, we set up the connections to the nodes with ground, Vdd and input pulses.
+  - VGND to VSS 0V
+  - Supply voltage VPWR to GND.
+  - Sweeping a pulse input.
+
+- Now we set the transient analysis.
+```
+VDD VPWR 0 3.3V
+VSS VGND 0 0V
+Va A VGND PULSE(0V 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+.tran 1n 20n
+.control
+run
+.endc
+.end
+```
+- Final Spice deck for simulation.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/b4290178-f0d8-4ffc-a3c9-6a05bdfd91c5)
+
+
+**NGpsice Simulation and Characterization**
+
+- Code to run the simulation
+```
+ngspice sky130_inv.spice
+```
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/54bb2f39-c958-4139-b37f-f2bb5083a389)
+
+- To get the plot for output against time with the sweeping input
+```
+plot y vs time av
+```
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/05225cc7-ed84-409d-82ba-0c7b8d3aa64b)
+
+- Now we have to characterise the plot.
+- There are four timing parameters used to characterize the inverter standard cell:
+  - Rise transition - Time taken for the output to rise from 20% to 80% of max value => 2.240 - 2.143 = 0.067ns
+  - Fall Transition - Time taken for the output to fall from 80% to 20% of max value => 4.0921 - 4.049 = 0.0431ns
+  - Cell Rise delay - Difference in time(50% output rise) to time(50% input fall) => 2.17333 - 2.13 = 0.0433ns
+  - Cell Fall delay - Difference in time(50% output fall) to time(50% input rise) => 4.076 - 4.0501 = 0.0259ns
+
+DRC Challenges
+==============
+
+Under this section, we will go over
+
+- In-depth overview of Magic's DRC engine
+- Introduction to Google/Skywater DRC rules
+- Lab : Warm-up exercise : Fixing a simple rule error
+- Lab : Main exercie : Fixing or create a complex error
+
+Introdution to Magic and Skywater PDK
+====================================
+For running the DRC we need to have an understanding of the technology node we are working on. For this one can refer the following
+
+- Magic --> [link]([https://www.github.com](http://opencircuitdesign.com/magic/))
+- Skywater PDK 
+- Github Repo for Skywater PDK --> [github](https://github.com/google/skywater-pdk)
+
+Lab Setup
+========
+
+- Setup to view the layouts
+- For extracting and generating views, Google/skywater repo files were built with Magic
+- Technology file dependency is more for any layout. hence, this file is created first.
+- Since, Pdk is still under development, there are some unfinished tech files and these are packaged for magic along with lab exercise layout and bunch of stuff into the tar ball
+```
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+```
+- Once we have downloaded the archive in the home directory, we extract it to get the lab .mag files
+- There is a hidden file ``.magicrc`` which directs to the various resources for the lab work ahead.
+
+MAGIC
+=====
+
+- Run Magic.For better graphic use, the command belwo is used:
+```
+magic -d XR
+```
+- To open a file we can load the file as such:
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/1a5c9ee6-4bc9-4010-8949-fec441ed40d8)
+
+- Other way to load it is by defining the name while running magic.
+```
+magic -d XR <file_name>.mag
+```
+
+- We will open up met3.mag
+- We see multiple independent example metal layouts with some DRC errors. We can refer these errors in the the Skywater PDK design rules which are flageed in the DRC engine.
+- We can make a frame around a metal region and in command window write drc why --> this gives us the DRC violated.
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/64ced32f-ff4b-49a0-87d7-de23971032ec)
+
+
+- Magic uses a lot of derived layers. To see these layers we can make a large box area and use following commands to see metal cut
+```
+cif see VIA2
+```
+LAB
+===
+
+**Exercise-1**
+- Load the poly.mag
+- Check the drc violation for poly.9
+- Refer the error using skywater pdk design rules
+   - We find that distance between regular polysilicon & poly resistor should be 22um but it is showing 17um and still no errors . We should go to sky130A.tech file and modify as follows to detect this error.
+- In line this,
+```
+*******************************************************
+spacing npres *nsd 480 touching_illegal \
+	"poly.resistor spacing to N-tap < %d (poly.9)"
+*******************************************************
+```
+- Edit as shown.
+```
+*******************************************************
+spacing npres allpolynonres 480 touching_illegal \
+	"poly.resistor spacing to N-tap < %d (poly.9)"
+*******************************************************
+```
+
+- Now the second edit. In line this.
+```
+*******************************************************
+spacing xhrpoly,uhrpoly,xpc alldiff 480 touching_illegal \
+	"xhrpoly/uhrpoly resistor spacing to diffusion < %d (poly.9)"
+*******************************************************
+```
+- Edit as shown.
+
+```
+*******************************************************
+spacing xhrpoly,uhrpoly,xpc allpolynonres 480 touching_illegal \
+	"xhrpoly/uhrpoly resistor spacing to diffusion < %d (poly.9)"
+*******************************************************
+```
+- After this, we tech load ``sky130.tech`` file and execute ``drc check``
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/baacdb4a-831c-4cc4-aad1-12e46bba55e9)
+
+- We can select poly.9 and ``run drc`` why to check for errors. Now it fine.
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/f65ef446-ab80-46d2-9c38-32c9f590324c)
+
+</details>
+
+## DAY-4: Pre-layout Timing Analysis and Importance of Good Clock Tree
+
+<details>
+      <summary> Timimg Modelling using Delay Models </summary>
+---
+
+Standard Cell LEF generation
+=============================
+
+During Placement, entire mag information is not necessary. Only the PR boundary, I/O ports, Power and ground rails of the cell is required. This information is defined in LEF file. The main objective is to extract lef from the mag file and plug into our design flow.
+
+Grid into Track
+==============
+
+Track: A path or a line on which metal layers are drawn for routing. Track is used to define the height of the standard cell.
+
+Guidelines for making a standard cell
+======================================
+
+- I/O ports must lie on the intersection on Horizontal and vertical tracks.
+- Width of standard cell is odd mutliples of Horizontal track pitch or X direction pitch.
+- Height of standard cell is odd mutliples of Vertical track pitch or y direction pitch.
+
+The information regarding the tracks is given in ``/home/shant/.volare/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tracks.info``
+```
+li1 X 0.23 0.46
+li1 Y 0.17 0.34
+met1 X 0.17 0.34
+met1 Y 0.17 0.34
+met2 X 0.23 0.46
+met2 Y 0.23 0.46
+met3 X 0.34 0.68
+met3 Y 0.34 0.68
+met4 X 0.46 0.92
+met4 Y 0.46 0.92
+met5 X 1.70 3.40
+met5 Y 1.70 3.40
+```
+- It tells us about all the metal layers as such.
+- We learnt that the input port and output for should be on the intersection of horizontal and vertical tracks, to verify this we set the grids as
+```
+grid 0.46um 0.34um 0.23um 0.17um
+```
+- Now we see the layout on Magic again.
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/0e460a5b-0f42-4b6d-b71a-5cd73461e0fc)
+
+- The second condition is also verified. The X-pitch is 0.46 and we can see that the standard cell is 3 times that, thus an odd multiple.
+- The same can be verified for the height of the standard cell.
+
+Creation of Ports
+=================
+- Once the layout is ready, the next step is extracting LEF file for the cell.
+
+- Certain properties and definitions need to be set to the pins of the cell. For LEF files, a cell that contains ports is written as a macro cell, and the ports are the declared as PINs of the macro.
+
+- Our objective is to extract LEF from a given layout (here of a simple CMOS inverter) in standard format. Defining port and setting correct class and use attributes to each port is the first step.
+
+- Method for definng ports
+
+     - In Magic Layout window, first source the .mag file for the design (here inverter). Then Edit >> Text which opens up a dialogue box.
+     - For each layer (to be turned into port), make a box on that particular layer and input a label name along with a sticky label of the layer name with which the port needs to be associated. Ensure the Port enable checkbox is checked and default checkbox is unchecked.
+ 
+  ![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/61914e83-af9f-46af-b741-07797e45fde3)
+
+- Port A (input port) and port Y (output port) are taken from locali (local interconnect) layer. Also, the number in the textarea near enable checkbox defines the order in which the ports will be written in LEF file (0 being the first).
+- For power and ground layers, the definition could be same or different than the signal layer. Here, ground and power connectivity are taken from metal1 (Notice the sticky label).
+
+
+Port Class and Port Use Attributes
+==================================
+
+- After defining ports, the next step is setting port class and port use attributes.
+
+- Select port A in magic:
+```
+port class input
+port use signal
+```
+- Select Y area
+```
+port class output
+port use signal
+```
+
+- Select VPWR area
+```
+port class inout
+port use power
+```
+
+- Select VGND area
+```
+port class inout
+port use ground
+```
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/7034226d-4585-48ab-82bd-77fb1bed3dca)
+
+**Extraction of LEF file**
+
+- Name the custom cell through tkcon window as sky130_shant.mag.
+- We generate lef file by command:
+
+```
+lef write
+```
+- Upon checking the directory, we can see the lef file being generated.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ced0bec1-89dd-4f75-a1dc-b9935d83f655)
+
+- lef file generated.
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2ef1009a-8f0c-4058-98ce-7fe48fc6f849)
+
+**Including Custom Cell ASIC Design:**
+
+- First, we transfer the lef file generated sky130_shant.lef into the /home/shant/OpenLane/designs/picorv32a/src directory.
+
+- Then we will transfer the ``sky130_fd_sc_hd__fast.lib``, ``sky130_fd_sc_hd__slow.lib`` and ``sky130_fd_sc_hd__typical.lib`` into the same directory.
+
+- For this, we edit the ``config.json`` file as below:
+  ```
+  {
+  "DESIGN_NAME": "picorv32",
+  "VERILOG_FILES": "dir::src/picorv32a.v",
+  "CLOCK_PORT": "clk",
+  "CLOCK_NET": "clk",
+  "FP_SIZING": "relative",
+  "GLB_RESIZER_TIMING_OPTIMIZATIONS": true,
+  "LIB_SYNTH" : "dir::src/sky130_fd_sc_hd__typical.lib",
+  "LIB_FASTEST" : "dir::src/sky130_fd_sc_hd__fast.lib",
+  "LIB_SLOWEST" : "dir::src/sky130_fd_sc_hd__slow.lib",
+  "LIB_TYPICAL":"dir::src/sky130_fd_sc_hd__typical.lib",
+  "TEST_EXTERNAL_GLOB":"dir::/src/*",
+  "SYNTH_DRIVING_CELL":"sky130_vsdinv",
+  "pdk::sky130*": {
+    "FP_CORE_UTIL": 35,
+    "CLOCK_PERIOD": 24,
+    "scl::sky130_fd_sc_hd": {
+      "FP_CORE_UTIL": 30
+    }
+  }
+  }
+  ```
+- Now, we integrate standard cell on OpenLane flow after make mount, and follow up
+```
+prep -design picorv32a -tag RUN_2023.09.11_06.05.06 -overwrite 
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+run_synthesis
+```
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/b1fa6837-a01e-4c8e-a24e-f6877a834470)
+
+- Synthesis log file
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/8ffe929e-88e1-4ca9-b485-581838b6c1da)
+
+- Static timing analysis (STA) log file:
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ad822f8d-ac64-4892-8291-fd0c64381766)
+ 
+
+Delay Table
+==========
+Delay is a parameter that has huge impact on our cells in the design. Delay decides each and every other factor in timing. For a cell with different size, threshold voltages, delay model table is created where we can it as timing table.
+
+- Delay of a cell depends on input transition and out load.
+
+Lets say two scenarios, we have long wire and the cell(X1) is sitting at the end of the wire : the delay of this cell will be different because of the bad transition that caused due to the resistance and capcitances on the long wire. we have the same cell sitting at the end of the short wire: the delay of this will be different since the tarn is not that bad comapred to the earlier scenario. Eventhough both are same cells, depending upon the input tran, the delay got chaned. Same goes with o/p load also.
+
+VLSI engineers have identified specific constraints when inserting buffers to preserve signal integrity. They've noticed that each buffer level must maintain consistent sizing, but their delays can vary depending on the load they drive. To address this, they introduced the concept of "delay tables", which essentially consist of 2D arrays containing values for input slew and load capacitance, each associated with different buffer sizes. These tables serve as timing models for the design.
+
+When the algorithm works with these delay tables, it utilizes the provided input slew and load capacitance values to compute the corresponding delay values for the buffers. In cases where the precise delay data is not readily available, the algorithm employs a technique of interpolation to determine the closest available data points and extrapolates from them to estimate the required delay values.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/1cd2f6d0-4b7e-4152-9857-213c1c9ba8dc)
+
+**Custom Cell inclusion in OpenLane Flow**
+
+- We have seen till the synthesis for the custom standard cell in OpenLane flow, and verified the synthesis and STA log files. We will pick it from there now.
+
+- First check the slack for the synthesis.
+
+- The slack was positive, therefore we can proceed, else would have to work on the slack.
+
+Now we run the floorplan and placement processes.
+
+```
+run_floorplan
+run_placement
+```
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/4e35db1f-f573-4692-82cd-9018b38ddc1e)
+
+- Now, we check for legality &To check the layout invoke magic from the results/placement directory
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/970beb1a-739f-4755-b2a0-6b3f03df3366)
+
+
+</details>
+
+
+<details> 
+      <summary> Timing Analysis with Ideal Clocks using OpenSTA </summary>
+---
+
+**Set-up Timing Analysis**
+
+- Right now, we will consider the ideal clocks, thus the clock tree are not yet made.
+
+- We take a single clock and anlysis launch and capture flops.
+
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/fff84b09-a2a8-4407-83d0-fe48be83b897)
+
+- In this, we assume that launch flop is triggered at the first posedge of clk and the capture flop recieves the value at the next posedge.
+
+- Suppose there was some combinational logic between the two, the delay of the logic should be less than the time period of the clock.
+
+- Thus the clock frequency and time period, and the combinational logic are designed with correspondence to each other.
+
+- Therefore my setup time for the combinational logic should be less than the time period of the clock.
+
+- Now, we will look into more real and practical conditions.
+
+- We look into the capture flop. It is made of multiple gates and muxes, which will have there mosfets, resistances and capacitances.
+
+- Thus will have delay associated to them.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/bb961f8b-110d-44dd-913b-d3a83c305e29)
+
+- Suppose the flop was developed with 2 muxes as shown. We have to condsider the delays.
+
+- This affect the combinational logic delay requirement. Now, the clock period T is not avaiable. The capture flop needs some setup time.
+
+- Thus the time avaiable for the combinational logic now is T - setupTime of capture flop.
+
+- Clock Jitter - clock is generated from PLL which has inbuilt circuit which cells and some logic. There might variations in the clock generation depending upon the ckt. These variations are collectivity known as clock uncertainity. In that jitter is one of the parameter. It is uncertain that clock might come at that exact time withought any deviation.
+
+- That is why it is called clock_uncertainity Skew, Jitter and Margin comes into clock_uncertainity
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/53e83f95-8df0-4fae-a1c7-c972921178f7)
+
+Post-Synthesis Analysis using OpenSTA
+====================================
+
+Timing analysis is carried out outside the OpenLANE flow using OpenSTA tool. For this, pre_sta.conf is required to carry out the STA analysis. Invoke OpenSTA outside the openLANE flow as follows:
+
+```
+sta pre_sta.conf
+```
+Since clock tree synthesis has not been performed yet, the analysis is with respect to ideal clocks and only setup time slack is taken into consideration. The slack value is the difference between data required time and data arrival time. The worst slack value must be greater than or equal to zero. If a negative slack is obtained, following steps may be followed:
+
+Change synthesis strategy, synthesis buffering and synthesis sizing values
+Review maximum fanout of cells and replace cells with high fanout
+sdc file for OpenSTA is modified.
+``base.sdc`` is located in ``vsdstdcelldesigns/extras`` directory. So, we copy it into our design folder using ``cp my_base.sdc /home/emil/OpenLane/designs/picorv32a/src/``
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/3b7e7bb4-61be-416f-8c2d-a2f865eb1e04)
+
+From the timing report, we can improve slack by upsizing the cells i.e., by replacing the cells with high drive strength and we can see significant changes in the slack. Since there were no timing violations, we can skip this step.Since clock is propagated only once we do CTS, In placement stage, clock is considered to be ideal. So only setup slack is taken into consideration before CTS.
+
+</details>
+
+<details>
+      <summary> Clock tree synthesis TritonCTS and signal integrity </summary>
+
+---
+
+Clock Tree Synthesis (CTS) plays a vital role in the creation of integrated circuits (ICs), particularly in the realm of digital electronics, where precise timing is of utmost importance. CTS involves the establishment of an organized network or structure of pathways for distributing the clock signal within the IC. This meticulous process guarantees that the clock signal effectively reaches all the sequential components, such as flip-flops and registers, in a synchronized and punctual fashion.
+
+It can be implemeted in various ways and the choice of the specific technique depends on the design requirements, constraints, and goals.
+Some of the different types of approches to clock tree synthesis are:
+
+- Balanced Tree CTS: The clock signal is spread out evenly, like branches of a tree. This helps ensure that all parts of the chip get the clock at about the same time, reducing timing problems. It's a straightforward method, but it might not save as much power as other methods.
+- H-tree CTS: It is like a tree shape with the letter "H." It's great for spreading out clock signals across big chips. This tree structure helps make sure the timing is good and saves power, especially in large areas of the chip.
+- Star CTS: In a star CTS, the clock signal is distributed from a single central point (like a star) to all the flip-flops. This approach simplifies clock distribution and minimizes clock skew but may require a higher number of buffers near the source.
+- Mesh CTS: In a mesh CTS, clock wires are arranged in a mesh-like grid pattern, and each flip-flop is connected to the nearest available clock wire. It is often used in highly regular and structured designs, such as memory arrays. Mesh CTS can offer a balance between simplicity and skew minimization.
+- Adaptive CTS: Adaptive CTS techniques adjust the clock tree structure dynamically based on the timing and congestion constraints of the design. This approach allows for greater flexibility and adaptability in meeting design goals but may be more complex to implement.
+
+Crosstalk in VLSI
+=================
+
+Crosstalk in VLSI refers to unwanted interference or coupling between adjacent conductive traces or wires on an integrated circuit (IC) or chip. It occurs when the electrical signals on one wire influence or disrupt the signals on neighboring wires.Uncontrolled crosstalk can lead to data corruption, timing violations, and increased power consumption. Mitigation: VLSI designers employ various techniques to mitigate crosstalk, such as optimizing layout and routing, using appropriate shielding, implementing proper clock distribution strategies, and utilizing clock gating to reduce dynamic power consumption when logic is idle
+
+Clock net sheilding in VLSI
+===========================
+
+Clock net shielding in VLSI refers to a technique used to protect the clock signal from interference or crosstalk. The clock signal is critical for synchronizing the operations of various components on a chip, and any interference can lead to timing issues and performance problems.
+VLSI designers may use shielding techniques to isolate the clock network from other signals, reducing the risk of interference. This can include dedicated clock routing layers, clock tree synthesis algorithms, and buffer insertion to manage clock distribution more effectively.
+VLSI designs often have multiple clock domains. Shielding and proper clock gating help ensure that clock signals do not propagate between domains, avoiding metastability issues and maintaining synchronization.
+
+CTS LAB
+=======
+The below command is used to run CTS in OpenLANE.
+```
+run_cts
+```
+![run_cts](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/dbdd3e21-b2c4-4994-8196-4eb1a6b15eb0)
+
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/427a0679-0ee3-4f14-adca-175ef6719174)
+
+After CTS run, my slack values are ``setup:12.36, Hold:0.38``
+Here also both values are not violating.
+
+</details>
+
+<details>
+      <summary> Timing analysis with real clocks </summary>
+
+Setup Timing Analysis using real clocks
+=======================================
+
+Analyzing setup time is a crucial element of designing digital circuits, especially in synchronous digital systems. It pertains to the duration during which a signal must remain steady and valid prior to the arrival of the clock edge. Guaranteeing the fulfillment of setup time prerequisites is vital for averting data errors and securing the correct functioning of the digital circuit.
+
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/67f61014-e9e2-4fea-9557-10fc3d02e17a)
+
+To ensure the setup time requirements are met we need to make sure of some things:
+
+1. Selecting proper Filp flops or latches.
+2. Optimize combinational logic
+3. Clock Skew Analysis
+4. Timing constraints
+
+Meeting setup time requrirements is cruical for a good digital circuit operation. If not done can result in data errors and multifunctioning of the circuit.
+
+Holding Timing Analysis using real clock
+=======================================
+Analysis of hold time is an equally vital component of digital circuit design, especially in synchronous systems. It concerns the minimum duration during which a data input (D) needs to maintain its stability and validity after the clock edge before any changes can occur. Ensuring that hold time requirements are met is essential to prevent data corruption and ensure the proper operation of digital circuits.
+
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/f9437a1c-f6e1-4ea6-ab64-7392c6aae91a)
+
+Since, clock is propagated, from this stage, we do timing analysis with real clocks. From now post cts analysis is performed by operoad within the openlane flow
+
+```
+openroad
+read_lef /home/emil/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/tmp/merged.nom.lef 
+read_def /home/emil/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/cts/picorv32.def 
+read_verilog /home/emil/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/synthesis/picorv32.v
+write_db pico_cts.db
+read_db pico_cts.db
+read_verilog /home/emil/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/synthesis/picorv32.v
+link_design picorv32
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+read_sdc /home/emil/OpenLane/designs/picorv32a/src/my_base.sdc
+set_propagated_clock (all_clocks)
+report_checks -path_delay min_max -format full_clock_expanded -digits 4
+```
+
+</details>
+
+
+## DAY-5:  Final steps for RTL2GDS using TritonRoute and OpenSTA
+
+<details>
+      <summary> Maze routing and Lee's Algorithm </summary>
 </details>
