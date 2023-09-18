@@ -915,7 +915,7 @@ spacing xhrpoly,uhrpoly,xpc allpolynonres 480 touching_illegal \
 
 <details>
       <summary> Timing Modelling using Delay Models </summary>
----
+
 
 Standard Cell LEF generation
 =============================
@@ -1113,7 +1113,8 @@ run_placement
 
 <details> 
       <summary> Timing Analysis with Ideal Clocks using OpenSTA </summary>
----
+
+
 
 **Set-up Timing Analysis**
 
