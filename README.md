@@ -735,7 +735,7 @@ To extract it on spice we open TKCON window, the steps are :
  1. ext2spice cthresh 0 rthresh 0 - extracts parasatic capcitances also since these are actual layers - nothing is created in the folder
  2. ext2spice - a file sky130_inv.spice has been created.
 
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/cbf82ecc-2dd5-44b0-a23f-4f14552fc0e6)
+![268498612-740bd3c9-e103-4d8b-a646-ee524d2275a5](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/8e1c6ec6-4c54-4d55-84fe-f575bc4499d7)
 
 
 </details>
