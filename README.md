@@ -1262,4 +1262,143 @@ report_checks -path_delay min_max -format full_clock_expanded -digits 4
 
 <details>
       <summary> Maze routing and Lee's Algorithm </summary>
+
+---
+Routing is the process of establishing a physical connection between two pins. Algorithms designed for routing take source and target pins and aim to find the most efficient path between them, ensuring a valid connection exists.
+
+The Maze Routing algorithm, such as the Lee algorithm, is one approach for solving routing problems.Here a grid similar to the one created during cell customization is utilized for routing purposes.
+The Lee algorithm starts with two designated points, the source and target, and leverages the routing grid to identify the shortest or optimal route between them.
+
+Lee's Algorithm has its limitations. It can be time consuming when dealing with millions of pins.It essentially constructs a maze and then numbers its cells from the source to the target. here are alternative algorithms that address similar routing challenges.
+
+Here in this case he shortest path is one that follows a steady increment of one.There might be multiple paths, but the best path that the tool will choose is one with less bends.The route should not be diagonal and must not overlap an obstruction such as macros. The Lee algorithm prioritizes selecting the best path, typically favoring L-shaped routes over zigzags. If no L-shaped paths are available, it may resort to zigzag routes. This approach is particularly valuable for global routing tasks.
+
+This algorithm however has high run time and consume a lot of memory thus more optimized routing algorithm is preferred .
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/4ab58f1b-3999-42ff-b722-f30ac2bcda45)
+
+Design Rule Check
+==================
+
+Design rule checks are physical checks of metal width, pitch and spacing requirement for the different layers which depend on different technology nodes.It verifies whether a design meets the predefined process technology rules given by the foundry for its manufacturing.
+
+The layout of a design must be in accordance with a set of predefined technology rules given by the foundry for manufacturability. After completion of the layout and its physical connection, an automatic program will check each and every polygon in the design against these design rules and report any violations.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/90753419-6485-48ab-9da4-84cfa30318f3)
+
+
 </details>
+
+<details> 
+      <summary> Power Distribution Network Generation </summary>
+
+---
+Unlike the general ASIC flow, Power Distribution Network generation is not a part of floorplan run in OpenLANE. PDN must be generated after CTS and post-CTS STA analyses:
+We can check whether PDN has been created or no by check the current ``def environment variable: echo $::env(CURRENT_DEF)``
+
+```
+prep -design picorv32a -tag <RUN file name>
+gen_pdn
+```
+
+![gen_PDN](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/835b436a-1422-46d9-927a-d9d898bc3847)
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ccf6797b-8691-49ff-81fe-df8d586ea40a)
+
+- gen_pdn Generates the power distribution network.
+
+- The power distribution network has to take the design_cts.def as the input def file.
+
+- Power rings,strapes and rails are created by PDN.
+
+- From VDD and VSS pads, power is drawn to power rings.
+
+- Next, the horizontal and vertical strapes connected to rings draw the power from strapes.
+
+- Stapes are connected to rings and these rings are connected to std cells. So, standard cells get power from rails.
+
+- Here are definitions for the straps and the rails. In this design, straps are at metal layer 4 and 5 and the standard cell rails are at the metal layer 1. Vias connect accross the layers as required.
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2af5911d-f608-44a8-9d1b-fe47b5ab5de2)
+
+</details>
+
+<details> 
+     <summary> Routing </summary>
+
+---
+
+In the realm of routing within Electronic Design Automation (EDA) tools, such as both OpenLANE and commercial EDA tools, the routing process is exceptionally intricate due to the vast design space. To simplify this complexity, the routing procedure is typically divided into two distinct stages: Global Routing and Detailed Routing.
+
+The two routing engines responsible for handling these two stages are as follows:
+
+1. Global Routing: In this stage, the routing region is subdivided into rectangular grid cells and represented as a coarse 3D routing graph. This task is accomplished by the "FASTE ROUTE" engine.
+
+2. Detailed Routing:
+
+Here, finer grid granularity and routing guides are employed to implement the physical wiring. The "tritonRoute" engine comes into play at this stage. "Fast Route" generates initial routing guides, while "Triton Route" utilizes the Global Route information and further refines the routing, employing various strategies and optimizations to determine the most optimal path for connecting the pins.
+
+Key Features of TritonRoute
+==========================
+
+1. Initial Detail Routing: TritonRoute initiates the detailed routing process, providing the foundation for the subsequent routing steps.
+
+2. Adherence to Pre-Processed Route Guides: TritonRoute places significant emphasis on following pre-processed route guides. This involves several actions:
+
+3. Initial Route Guide Analysis: TritonRoute analyzes the directions specified in the preferred route guides. If any non-directional routing guides are identified, it breaks them down into unit widths.
+
+4. Guide Splitting: In cases where non-directional routing guides are encountered, TritonRoute divides them into unit widths to facilitate routing.
+
+5. Guide Merging: TritonRoute merges guides that are orthogonal (touching guides) to the preferred guides, streamlining the routing process.
+
+6. Guide Bridging: When it encounters guides that run parallel to the preferred routing guides, TritonRoute employs an additional layer to bridge them, ensuring efficient routing within the preprocessed guides.
+
+Assumes route guide for each net satisfy inter guide connectivity Same metal layer with touching guides or neighbouring metal layers with nonzero vertically overlapped area( via are placed ).each unconnected termial i.e., pin of a standard cell instance should have its pin shape overlapped by a routing guide( a black dot(pin) with purple box(metal1 layer))
+
+TritonRoute problem statement
+============================
+
+```
+Inputs : LEF, DEF, Preprocessed route guides
+Output : Detailed routing solution with optimized wire length and via count
+Constraints : Route guide honoring, connectivity constraints and design rules.
+```
+The space where the detailed route takes place has been defined. Now TritonRoute handles the connectivity in two ways.
+
+- Access Point(AP) : An on-grid point on the metal of the route guide, and is used to connect to lower-layer segments, pins or IO ports,upper-layer segments. Access Point Cluster(APC) : A union of all the Aps derived from same lower-layer segment, a pin or an IO port, upper-layer guide.
+
+**TritonRoute run for routing**
+
+Make sure the CURRENT_DEF is set to ``pdn.def``
+
+- Start routing by using
+```
+run_routing
+```
+![run_rounting](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/042314bf-b7d5-47a4-b07e-c6cb761871d5)
+
+- Log File:
+
+  ![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/dda09d31-51a5-422d-a47a-e8570c16d22c)
+
+  Layout in magic tool post routing
+  =================================
+
+  The design can be viewed on magic within results/routing directory. Run the follwing command in that directory:
+```
+magic -T ~/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read picorv32.def &
+```
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/c20a0670-ea61-41d8-ac14-3b0f55dae4f8)
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/38b527b9-fc26-43eb-9a04-20c55f4c42ae)
+
+
+</details>
+
+
+## Acknowledgement
+1. Kunal Ghosh, VSD Corp. Pvt. Ltd.
+2. ChatGPT
+3. Alwin Shaju, Colleague, IIITB
+4. Emil J. Lal , Colleague, IIITB
+5. Shant Rakshit, Colleague IIITB
