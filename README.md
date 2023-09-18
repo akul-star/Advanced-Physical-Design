@@ -933,7 +933,7 @@ Guidelines for making a standard cell
 - Width of standard cell is odd mutliples of Horizontal track pitch or X direction pitch.
 - Height of standard cell is odd mutliples of Vertical track pitch or y direction pitch.
 
-The information regarding the tracks is given in ``/home/shant/.volare/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tracks.info``
+The information regarding the tracks is given in ``/home/akul-sinha/.volare/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tracks.info``
 ```
 li1 X 0.23 0.46
 li1 Y 0.17 0.34
