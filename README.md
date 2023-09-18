@@ -555,6 +555,7 @@ Low transition time = time(slew_high_fall_thr) - time (slew_low_fall_thr)
 
 <details>
       <summary> CMOS inverter ngspice simulations </summary>
+
 ---
 
 ``ngspice`` is opesoure engine where simulations are done.
@@ -580,10 +581,36 @@ vdd pmos w = 0.375u L = 0.25u , cload out 0 10f
 - Model file - information of parameters related to transistors Simulation of CMOS using different width and lengths. From the waveform, irrespective of switching the shape of it are almost 
   same.
 
-https://user-images.githubusercontent.com/69166205/266819907-ee5317df-1ef5-4140-88cc-562fecc2001c.png
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/0b1c5a67-245f-4298-b94a-8b5588dbea42)
+
+From the waveform we can see the characteristics are maintained across all sizes of CMOS. So CMOS as a circuit is a robust device hence use in designing of logic gates. Parameters that define the robustness of the CMOS are
+
+Switching Threshold Vm
+=====================
+- The Switching Threshold of a CMOS inverter is the point where the Vin = Vout on the DC Transfer characreristics.
+- At this point, both the transistors are in saturation region, means both are turned on and have high chances of current flowing driectly from VDD to Ground called Leakage current.
 
 
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/89fa1791-a1c8-4383-9f1a-df80ec4853e1)
 
+Through transient analysis, we calculate the rise and fall delays of the CMOS by SPICE Simulation. As we know delays are calculated at 50% of the final values.
+
+Lab steps to git clone vsdstdcelldesign
+=======================================
+
+First, clone the required mag files and spicemodels of inverter,pmos and nmos sky130. The command to clone files from github link is:
+
+```
+git clone https://github.com/nickson-jose/vsdstdcelldesign.git
+```
+once I run this command, it will create vsdstdcelldesign folder in openlane directory.
+
+Inorder to open the mag file and run magic go to the directory
+
+For layout we run magic command
+
+``magic -T sky130A.tech sky130_inv.mag &``
 
 
 
