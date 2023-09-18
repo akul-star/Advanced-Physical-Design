@@ -8,6 +8,7 @@
       <summary> How to talk to computers </summary>
 
 ---
+
 At some part of our life, we have all used an ARDUINO board. We all know that an Arduino board is a popular open-source hardware platform designed for electronics enthusiasts, hobbyists, students, and professionals to create and prototype a wide range of embedded systems and electronic projects. Arduino boards are known for their ease of use and versatility, making them a valuable tool for learning about electronics and programming.
 
 ![arduino](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2c4d152e-9a76-47c3-9631-0a137711f6b7)
@@ -1017,10 +1018,12 @@ lef write
 ```
 - Upon checking the directory, we can see the lef file being generated.
 
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ced0bec1-89dd-4f75-a1dc-b9935d83f655)
+![magic_sky130_inv](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/400a5de3-a45e-4c5f-9dc5-39e5c9f71cbf)
+
 
 - lef file generated.
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/2ef1009a-8f0c-4058-98ce-7fe48fc6f849)
+![lef_file](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/10d6224f-437d-4f77-ad45-660de7034606)
+
 
 **Including Custom Cell ASIC Design:**
 
