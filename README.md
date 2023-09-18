@@ -840,7 +840,7 @@ wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
 MAGIC
 =====
 
-- Run Magic.For better graphic use, the command belwo is used:
+- Run Magic for better graphic use, the command below is used:
 ```
 magic -d XR
 ```
@@ -912,7 +912,7 @@ spacing xhrpoly,uhrpoly,xpc allpolynonres 480 touching_illegal \
 ## DAY-4: Pre-layout Timing Analysis and Importance of Good Clock Tree
 
 <details>
-      <summary> Timimg Modelling using Delay Models </summary>
+      <summary> Timing Modelling using Delay Models </summary>
 ---
 
 Standard Cell LEF generation
@@ -1266,6 +1266,7 @@ report_checks -path_delay min_max -format full_clock_expanded -digits 4
       <summary> Maze routing and Lee's Algorithm </summary>
 
 ---
+
 Routing is the process of establishing a physical connection between two pins. Algorithms designed for routing take source and target pins and aim to find the most efficient path between them, ensuring a valid connection exists.
 
 The Maze Routing algorithm, such as the Lee algorithm, is one approach for solving routing problems.Here a grid similar to the one created during cell customization is utilized for routing purposes.
