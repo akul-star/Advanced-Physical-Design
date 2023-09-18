@@ -428,7 +428,7 @@ run_placement
 ![Run_placement](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/9d91d4c2-0030-4ce8-bad2-55eafd458a67)
 
 ```
-magic -T /home/akul/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read
+magic -T ~/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.nom.lef def read
 picorv32.def &
 ```
 ![run_placement_magic](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/ca28cf01-61a9-412b-905d-e5181203203b)
