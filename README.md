@@ -612,7 +612,10 @@ For layout we run magic command
 
 ``magic -T sky130A.tech sky130_inv.mag &``
 
+Ampersand at the end makes the next prompt line free, otherwise magic keeps the prompt line busy. Once we run the magic command we get the layout of the inverter in the magic window
 
+
+![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/43d23d97-eb6c-4067-85a5-bea4de45ce56)
 
 
 
