@@ -780,7 +780,7 @@ run
 ```
 - Final Spice deck for simulation.
 
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/b4290178-f0d8-4ffc-a3c9-6a05bdfd91c5)
+![spice_deck_s](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/3d22d2ab-b796-4623-ae1b-ef9af8b90088)
 
 
 **NGpsice Simulation and Characterization**
