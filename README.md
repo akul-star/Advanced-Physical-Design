@@ -789,8 +789,8 @@ run
 ```
 ngspice sky130_inv.spice
 ```
+![ngspice_sky130 spice](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/498155a0-29f2-4335-bd5d-c01d14d8d41c)
 
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/54bb2f39-c958-4139-b37f-f2bb5083a389)
 
 - To get the plot for output against time with the sweeping input
 ```
