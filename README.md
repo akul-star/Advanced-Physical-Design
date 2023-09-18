@@ -1170,7 +1170,6 @@ Review maximum fanout of cells and replace cells with high fanout
 sdc file for OpenSTA is modified.
 ``base.sdc`` is located in ``vsdstdcelldesigns/extras`` directory. So, we copy it into our design folder using ``cp my_base.sdc /home/akul-sinha/OpenLane/designs/picorv32a/src/``
 
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/3b7e7bb4-61be-416f-8c2d-a2f865eb1e04)
 
 From the timing report, we can improve slack by upsizing the cells i.e., by replacing the cells with high drive strength and we can see significant changes in the slack. Since there were no timing violations, we can skip this step.Since clock is propagated only once we do CTS, In placement stage, clock is considered to be ideal. So only setup slack is taken into consideration before CTS.
 
