@@ -1402,6 +1402,7 @@ magic -T ~/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merge
 ```
 ![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/c20a0670-ea61-41d8-ac14-3b0f55dae4f8)
 
+![sky130_vsdinv_08592](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/01dc407f-c0fe-460f-af2e-0b2bfa823e0e)
 
 
 
