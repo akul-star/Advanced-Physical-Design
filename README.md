@@ -1252,15 +1252,15 @@ Since, clock is propagated, from this stage, we do timing analysis with real clo
 
 ```
 openroad
-read_lef /home/emil/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/tmp/merged.nom.lef 
-read_def /home/emil/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/cts/picorv32.def 
-read_verilog /home/emil/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/synthesis/picorv32.v
+read_lef /home/akul-sinha/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/tmp/merged.nom.lef 
+read_def /home/akul-sinha/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/cts/picorv32.def 
+read_verilog /home/akul-sinha/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/synthesis/picorv32.v
 write_db pico_cts.db
 read_db pico_cts.db
-read_verilog /home/emil/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/synthesis/picorv32.v
+read_verilog /home/akul-sinha/OpenLane/designs/picorv32a/runs/RUN_2023.09.17_04.44.22/results/synthesis/picorv32.v
 link_design picorv32
 read_liberty $::env(LIB_SYNTH_COMPLETE)
-read_sdc /home/emil/OpenLane/designs/picorv32a/src/my_base.sdc
+read_sdc /home/akul-sinha/OpenLane/designs/picorv32a/src/my_base.sdc
 set_propagated_clock (all_clocks)
 report_checks -path_delay min_max -format full_clock_expanded -digits 4
 ```
@@ -1401,7 +1401,7 @@ magic -T ~/.volare/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merge
 ```
 ![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/c20a0670-ea61-41d8-ac14-3b0f55dae4f8)
 
-![image](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/38b527b9-fc26-43eb-9a04-20c55f4c42ae)
+
 
 
 </details>
