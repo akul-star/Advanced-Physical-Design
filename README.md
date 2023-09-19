@@ -1386,7 +1386,8 @@ Make sure the CURRENT_DEF is set to ``pdn.def``
 ```
 run_routing
 ```
-![run_rounting](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/042314bf-b7d5-47a4-b07e-c6cb761871d5)
+![run_routing](https://github.com/akul-star/Advanced-Physical-Design/assets/75561390/a9421d71-8f1d-471f-b212-0f9e5246fe21)
+
 
 - Log File:
 
